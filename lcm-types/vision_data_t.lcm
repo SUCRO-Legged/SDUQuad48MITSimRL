@@ -1,0 +1,5 @@
+struct  vision_data_t
+{
+    double distance; 
+    double direction_delta;
+}

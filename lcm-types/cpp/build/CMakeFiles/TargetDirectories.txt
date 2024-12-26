@@ -1,0 +1,3 @@
+/home/user/Cheetah_software/lcm-types/cpp/build/CMakeFiles/edit_cache.dir
+/home/user/Cheetah_software/lcm-types/cpp/build/CMakeFiles/rebuild_cache.dir
+/home/user/Cheetah_software/lcm-types/cpp/build/CMakeFiles/robot_record.dir

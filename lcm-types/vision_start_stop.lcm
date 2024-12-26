@@ -1,0 +1,8 @@
+struct vision_start_stop_t
+{
+	int8_t start;
+	int8_t stop;
+	double start_position[3];
+	double stop_position[3];
+
+}

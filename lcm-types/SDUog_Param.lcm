@@ -1,0 +1,36 @@
+
+struct SDUog_Parameter_t
+{
+    int64_t  timestamp;
+    double   position[3];
+    double   orientation[4]; 
+    int32_t  num_ranges;
+    int16_t  ranges[num_ranges];
+    string   name;
+    boolean  enabled;
+
+    double vm_kp_roll;
+    double vm_kp_pitch;
+    double vm_kp_height;
+    double vm_kd_roll;
+    double vm_kd_pitch;
+    double vm_kd_height;
+
+    double s[6];
+    double w[6];
+    double vm_kp_fx;
+    double vm_kp_fy;
+    double vm_kp_fomega;
+    double vm_kd_fx;
+    double vm_kd_fy;
+    double vm_kd_fomega;
+
+    double     sduog_value1;
+    double     sduog_value2;
+    double     sduog_value3;
+    double     sduog_value4;
+    double     sduog_value5;
+    double     sduog_value6;
+
+   
+}

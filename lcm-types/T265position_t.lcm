@@ -1,0 +1,8 @@
+struct T265position_t {
+
+   float posBody[3];
+   float velBody[3];
+   float rpyBOdy[3];
+   float omegaBody[3];
+   float accBody[3];
+}

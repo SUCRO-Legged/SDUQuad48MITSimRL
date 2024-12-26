@@ -1,0 +1,3 @@
+add_subdirectory(JPos_Controller)
+add_subdirectory(MIT_Controller)
+add_subdirectory(MiniCheetahSpi_Controller)
