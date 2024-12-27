@@ -278,7 +278,7 @@ void SimulationBridge::run_sbus() {
       rc_control.rpy_des[0] = deadband(receive_message.roll, 0.1, -0.5, 0.5); //
       rc_control.rpy_des[1] = deadband(receive_message.pitch, 0.1, -0.5, 0.5); //
       rc_control.rpy_des[2] = deadband(receive_message.yaw, 0.1, -0.5, 0.5); //
-      rc_control.step_height = receive_message.step_height*10.0;// deadband((receive_message.step_height), 0.01, 0.0, 0.15)*10.0; // 步态高度约束
+      rc_control.step_height = receive_message.step_height*10.0;
       rc_control.variable[0] = receive_message.gait;
       rc_control.height_variation = receive_message.body_height_variation;
       static int tmsss=0;

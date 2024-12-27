@@ -16,13 +16,14 @@
 #include "T265position_t.hpp"
 #include "lcm-cpp.hpp"
 #include <thread>
-//#include <librealsense2/rs.hpp>
+// #include <librealsense2/rs.hpp>
 /*!
  * "Cheater" estimator for orientation which always returns the correct value in simulation
  */
 template <typename T>
-class CheaterOrientationEstimator : public GenericEstimator<T> {
- public:
+class CheaterOrientationEstimator : public GenericEstimator<T>
+{
+public:
   virtual void run();
   virtual void setup() {}
 };
@@ -32,25 +33,23 @@ class CheaterOrientationEstimator : public GenericEstimator<T> {
  * we just return that.
  */
 template <typename T>
-class VectorNavOrientationEstimator : public GenericEstimator<T> {
- public:
+class VectorNavOrientationEstimator : public GenericEstimator<T>
+{
+public:
   virtual void run();
   virtual void setup() {}
-    VectorNavOrientationEstimator();
-    std::thread _t265OritationLcmThread;
-    void handleLCM();
-    volatile bool _interfaceLcmQuit = false;
-    lcm::LCM myOritationLCM;
-    void handleT265LCM ( const lcm::ReceiveBuffer* rbuf, const std::string& chan,
-                         const T265position_t* msg );
-    T t265_roll,t265_pitch,t265_yaw,t265_omega_x,t265_omega_y,t265_omega_z;
- protected:
+  VectorNavOrientationEstimator();
+  std::thread _t265OritationLcmThread;
+  void handleLCM();
+  volatile bool _interfaceLcmQuit = false;
+  lcm::LCM myOritationLCM;
+  void handleT265LCM(const lcm::ReceiveBuffer *rbuf, const std::string &chan,
+                     const T265position_t *msg);
+  T t265_roll, t265_pitch, t265_yaw, t265_omega_x, t265_omega_y, t265_omega_z;
+
+protected:
   bool _b_first_visit = true;
   Quat<T> _ori_ini_inv;
-//    rs2::pipeline pipe;
-//    rs2::config cfg;
-//    long pipe_cout;
 };
 
-
-#endif  // PROJECT_ORIENTATIONESTIMATOR_H
+#endif // PROJECT_ORIENTATIONESTIMATOR_H

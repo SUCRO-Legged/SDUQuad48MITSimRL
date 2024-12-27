@@ -1,5 +1,4 @@
 #include "FSM_State_RL.h"
-// #include <Configuration.h>
 #include <iomanip>
 #include <iostream>
 #include <unistd.h>
@@ -53,7 +52,7 @@ FSM_State_RL<T>::FSM_State_RL(ControlFSMData<T> *_controlFSMData)
             std::cout << "[INIT]: " << "The policy last forward time duration = " << std::chrono::duration_cast<std::chrono::microseconds>(_begin - _end).count() << " us" << std::endl;
     }
 
-    std::cout << "[INFO]: State_RL is ok!" << std::endl;
+    std::cout << "[INFO]: FSM_State_RL is ok!" << std::endl;
     std::cout << std::endl;
 }
 

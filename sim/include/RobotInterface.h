@@ -57,7 +57,7 @@ class RobotInterface : PeriodicTask {
   PeriodicTaskManager _taskManager;
   gamepad_lcmt _gamepad_lcmt;
   control_parameter_request_lcmt _parameter_request_lcmt;
-  T265position_t t265test; // 测试用的
+  T265position_t t265test;
   bool _pendingControlParameterSend = false;
   lcm::LCM _lcm;
   uint64_t _robotID;

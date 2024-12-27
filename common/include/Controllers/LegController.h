@@ -22,7 +22,8 @@
  * Data sent from the control algorithm to the legs.
  */
 template <typename T>
-struct LegControllerCommand {
+struct LegControllerCommand
+{
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   LegControllerCommand() { zero(); }
 
@@ -36,26 +37,25 @@ struct LegControllerCommand {
  * Data returned from the legs to the control code.
  */
 template <typename T>
-struct LegControllerData {
+struct LegControllerData
+{
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   LegControllerData() { zero(); }
 
-  void setQuadruped(Quadruped<T>& quad) { quadruped = &quad; }
+  void setQuadruped(Quadruped<T> &quad) { quadruped = &quad; }
 
   void zero();
 
-  Vec3<T> q, qd, p, v,q_buffer,qd_buffer,qd_buffer_10[10],v_buffer,qd_numeric,qd_numeric_buffer;
+  Vec3<T> q, qd, p, v, q_buffer, qd_buffer, qd_buffer_10[10], v_buffer, qd_numeric, qd_numeric_buffer;
   Mat3<T> J;
   Vec3<T> tauEstimate;
   Vec3<T> tauActuatual;
   Vec3<T> footforceDesired;
   Vec3<T> footforceActuatual;
-  Quadruped<T>* quadruped;
+  Quadruped<T> *quadruped;
 
-  // 上下楼梯标志
   int downstair_flag;
   int upstair_flag;
-  // 滑倒标志
   int slip_flag;
 
   Vec3<T> p_error;
@@ -65,20 +65,23 @@ struct LegControllerData {
  * Controller for 4 legs of a quadruped.  Works for both Mini Cheetah and Cheetah 3
  */
 template <typename T>
-class LegController {
- public:
-  LegController(Quadruped<T>& quad) : _quadruped(quad) {
-    for (auto& data : datas) data.setQuadruped(_quadruped);
+class LegController
+{
+public:
+  LegController(Quadruped<T> &quad) : _quadruped(quad)
+  {
+    for (auto &data : datas)
+      data.setQuadruped(_quadruped);
   }
 
   void zeroCommand();
   void edampCommand(RobotType robot, T gain);
-  void updateData(const SpiData* spiData);
-  void updateData(const TiBoardData* tiBoardData);
-  void updateCommand(SpiCommand* spiCommand);
-  void updateCommand(TiBoardCommand* tiBoardCommand);
+  void updateData(const SpiData *spiData);
+  void updateData(const TiBoardData *tiBoardData);
+  void updateCommand(SpiCommand *spiCommand);
+  void updateCommand(TiBoardCommand *tiBoardCommand);
   void setEnabled(bool enabled) { _legsEnabled = enabled; };
-  void setLcm(leg_control_data_lcmt* data, leg_control_command_lcmt* command);
+  void setLcm(leg_control_data_lcmt *data, leg_control_command_lcmt *command);
 
   /*!
    * Set the maximum torque.  This only works on cheetah 3!
@@ -87,7 +90,7 @@ class LegController {
 
   LegControllerCommand<T> commands[4];
   LegControllerData<T> datas[4];
-  Quadruped<T>& _quadruped;
+  Quadruped<T> &_quadruped;
   bool _legsEnabled = false;
   T _maxTorque = 0;
   bool _zeroEncoders = false;
@@ -95,7 +98,7 @@ class LegController {
 };
 
 template <typename T>
-void computeLegJacobianAndPosition(Quadruped<T>& quad, Vec3<T>& q, Mat3<T>* J,
-                                   Vec3<T>* p, int leg);
+void computeLegJacobianAndPosition(Quadruped<T> &quad, Vec3<T> &q, Mat3<T> *J,
+                                   Vec3<T> *p, int leg);
 
-#endif  // PROJECT_LEGCONTROLLER_H
+#endif // PROJECT_LEGCONTROLLER_H

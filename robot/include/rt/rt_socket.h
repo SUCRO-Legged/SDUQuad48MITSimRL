@@ -29,11 +29,11 @@
 
 typedef struct
 {
-   unsigned int start; //数据帧的起始值 0xAAAAAAAA
+    unsigned int start;
 
-    float roll;      // 平衡站立时候可控
+    float roll;
     float pitch;
-    float yaw;      // 平衡站立时候可控
+    float yaw;
 
     float velocity_x;
     float velocity_y;
@@ -47,13 +47,13 @@ typedef struct
     float offset_x;
     float offset_y;
 
-    unsigned int end;  //数据帧的结束值 0xFFFFFFFF
+    unsigned int end;
 
-}Client_Command_Message;
+} Client_Command_Message;
 
 typedef struct
 {
-    unsigned int start;//数据帧的起始值 0xAAAAAAAA
+    unsigned int start;
 
     float roll;
     float pitch;
@@ -73,25 +73,10 @@ typedef struct
     float voltage;
     int gait;
 
-    unsigned int end; //数据帧的结束值 0xFFFFFFFF
+    unsigned int end;
 
 } ReplyMessage;
 
-//typedef struct
-//{
-//    Client_Command_Message clientmsg;
-//}TCPClientMessage;
-//
-//typedef struct
-//{
-//    ReplyMessage replymsg;
-//}TCPReplyMessag;
-//
-//typedef struct
-//{
-//    Client_Command_Message msg;
-//    //struct _pulse pulse;
-//} MessageT;
-void* TCPThread(void *arg);
+void *TCPThread(void *arg);
 void init_TCPThread();
-#endif //CHEETAH_SOFTWARE_24NM_RT_SOCKET_H
+#endif // CHEETAH_SOFTWARE_24NM_RT_SOCKET_H

@@ -5,8 +5,8 @@
 #include <rt/rt_rc_interface.h>
 #include <rt/rt_sbus.h>
 #include <stdio.h>
-#include <string.h>                            // memcpy
-extern Client_Command_Message receive_message; // tcp 发送的指令
+#include <string.h> // memcpy
+extern Client_Command_Message receive_message;
 static pthread_mutex_t lcm_get_set_mutex =
     PTHREAD_MUTEX_INITIALIZER; /**< mutex to protect gui settings coming over
                              LCM */
@@ -42,16 +42,15 @@ void sbus_packet_complete_at9s()
     float v_scale = 1.5; // 2.0
     float w_scale = 2 * v_scale;
 
-    auto estop_switch = data.SWE; // 开关
+    auto estop_switch = data.SWE;
     auto QP_Locomotion_switch = data.SWA;
-    // auto Locomotion_switch=data.SWB;
 
     auto left_select = data.SWC;
     auto right_select = data.SWD;
 
     auto normal_jump_flip_switch = data.SWG;
-    auto roll_show = 0.0;               // data.varB*1.1;
-    auto step_height = data.varB + 1.0; // varB 范围是-1～1
+    auto roll_show = 0.0;
+    auto step_height = data.varB + 1.0;
     int selected_mode = 0;
 #ifdef USE_TCPnet_Control
     if (right_select == AT9S_BOOL_DOWN)
@@ -68,7 +67,7 @@ void sbus_packet_complete_at9s()
         rc_control.rpy_des[0] = deadband(receive_message.roll, 0.1, -0.5, 0.5);  //
         rc_control.rpy_des[1] = deadband(receive_message.pitch, 0.1, -0.5, 0.5); //
         rc_control.rpy_des[2] = deadband(receive_message.yaw, 0.1, -0.5, 0.5);   //
-        rc_control.step_height = receive_message.step_height * 10.0;             // deadband((receive_message.step_height), 0.01, 0.0, 0.15)*10.0; // 步态高度约束
+        rc_control.step_height = receive_message.step_height * 10.0;
         rc_control.variable[0] = receive_message.gait;
         rc_control.height_variation = receive_message.body_height_variation;
         //        printf("rc_control.mode: %d\n",(int)rc_control.mode);
@@ -78,12 +77,12 @@ void sbus_packet_complete_at9s()
 #endif
         switch (estop_switch)
         {
-        case AT9S_TRI_UP: // 停止
+        case AT9S_TRI_UP:
             selected_mode = RC_mode::OFF;
             break;
 
         case AT9S_TRI_MIDDLE:
-            if (normal_jump_flip_switch == AT9S_TRI_MIDDLE) // 正常运动模式
+            if (normal_jump_flip_switch == AT9S_TRI_MIDDLE)
             {
                 selected_mode = RC_mode::RECOVERY_STAND;
                 rc_control.height_variation = 0;
@@ -92,7 +91,7 @@ void sbus_packet_complete_at9s()
             {
                 selected_mode = RC_mode::STAND_DOWN;
             }
-            if (normal_jump_flip_switch == AT9S_TRI_DOWN) // 正常运动模式
+            if (normal_jump_flip_switch == AT9S_TRI_DOWN)
             {
                 selected_mode = RC_mode::RL_TEST;
                 rc_control.height_variation = 0;
@@ -100,7 +99,7 @@ void sbus_packet_complete_at9s()
             break;
 
         case AT9S_TRI_DOWN:
-            if (normal_jump_flip_switch == AT9S_TRI_MIDDLE) // mpc_wbc正常运动模式
+            if (normal_jump_flip_switch == AT9S_TRI_MIDDLE)
             {
                 if (QP_Locomotion_switch == AT9S_BOOL_UP)
                 {
@@ -110,16 +109,16 @@ void sbus_packet_complete_at9s()
                     data.right_stick_y = deadband(data.right_stick_y, 0.1, -1., 1.);
 
                     int gait_id = 9;
-                    if (right_select == AT9S_BOOL_UP) // 低速运动模式
+                    if (right_select == AT9S_BOOL_UP)
                     {
                         if (left_select == AT9S_TRI_UP)
                             gait_id = 9; // trot
                         else if (left_select == AT9S_TRI_MIDDLE)
-                            gait_id = 3;                       // slow trot
+                            gait_id = 3;
                         else if (left_select == AT9S_TRI_DOWN) // walk
                             gait_id = 6;
                     }
-                    else if (right_select == AT9S_BOOL_DOWN) // 高速运动模式
+                    else if (right_select == AT9S_BOOL_DOWN)
                     {
 
                         if (left_select == AT9S_TRI_UP)
@@ -131,7 +130,6 @@ void sbus_packet_complete_at9s()
                     }
 
                     rc_control.variable[0] = gait_id;
-                    // rc_control.v_des[0] = data.right_stick_x > 0 ? v_scale * data.right_stick_x : v_scale / 1.0 * data.right_stick_x;
                     rc_control.v_des[0] = data.right_stick_x > 0 ? data.right_stick_x : 0.5 * data.right_stick_x;
                     rc_control.v_des[1] = -1.0 * data.right_stick_y; // -v_scale * data.right_stick_y;
                     rc_control.v_des[2] = 0;
@@ -163,7 +161,7 @@ void sbus_packet_complete_at9s()
                 int gait_id = 0;
                 if (QP_Locomotion_switch == AT9S_BOOL_DOWN)
                 {
-                    if (right_select == AT9S_BOOL_UP) // 低速运动模式
+                    if (right_select == AT9S_BOOL_UP)
                     {
                         if (left_select == AT9S_TRI_UP)
                             gait_id = 0; // trot
@@ -172,7 +170,7 @@ void sbus_packet_complete_at9s()
                         else if (left_select == AT9S_TRI_DOWN) // walk
                             gait_id = 2;
                     }
-                    else if (right_select == AT9S_BOOL_DOWN) // 高速运动模式
+                    else if (right_select == AT9S_BOOL_DOWN)
                     {
                         if (left_select == AT9S_TRI_UP)
                             gait_id = 3; // trot
@@ -184,7 +182,7 @@ void sbus_packet_complete_at9s()
                 }
                 else
                 {
-                    if (right_select == AT9S_BOOL_UP) // 低速运动模式
+                    if (right_select == AT9S_BOOL_UP)
                     {
                         if (left_select == AT9S_TRI_UP)
                             gait_id = 6; // trot
@@ -193,7 +191,7 @@ void sbus_packet_complete_at9s()
                         else if (left_select == AT9S_TRI_DOWN) // walk
                             gait_id = 8;
                     }
-                    else if (right_select == AT9S_BOOL_DOWN) // 高速运动模式
+                    else if (right_select == AT9S_BOOL_DOWN)
                     {
                         if (left_select == AT9S_TRI_UP)
                             gait_id = 9; // trot

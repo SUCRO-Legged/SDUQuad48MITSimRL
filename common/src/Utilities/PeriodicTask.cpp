@@ -105,20 +105,20 @@ void PeriodicTask::loopFunction() {
   timerSpec.it_value.tv_nsec = nanoseconds;
   timerSpec.it_interval.tv_nsec = nanoseconds;
 
-  timerfd_settime(timerFd, 0, &timerSpec, nullptr); //0表示是相对定时器 开始定时器
+  timerfd_settime(timerFd, 0, &timerSpec, nullptr); 
 #endif
   unsigned long long missed = 0;
 
   printf("[PeriodicTask] Start %s (%d s, %d ns)\n", _name.c_str(), seconds,
          nanoseconds);
   while (_running) {
-    _lastPeriodTime = (float)t.getSeconds(); // 当前时间-start time 得到经过的时间
-    t.start(); // 得到start time
-    run();     // 这是周期运行到函数
-    _lastRuntime = (float)t.getSeconds(); // 本次运行到时间
+    _lastPeriodTime = (float)t.getSeconds();
+    t.start(); 
+    run();    
+    _lastRuntime = (float)t.getSeconds(); 
 #ifdef linux
-    int m = read(timerFd, &missed, sizeof(missed)); //read读的内容为uint_64，当到达定时器时间返回一个uint64_t,否则返回-1
-    (void)m; // 没有到达定时时间则会卡在这里
+    int m = read(timerFd, &missed, sizeof(missed)); 
+    (void)m; 
 #endif
     _maxPeriod = std::max(_maxPeriod, _lastPeriodTime);
     _maxRuntime = std::max(_maxRuntime, _lastRuntime);

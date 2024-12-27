@@ -72,7 +72,6 @@ private:
     //
     //  const int standup_ramp_iter = 250;
     //  const int standup_settle_iter = 250;
-    // 检查当前模式是否安全
     bool locomotionSafe();
     void _RollOver(const int &iter);
     void _StandUp(const int &iter);
@@ -83,7 +82,6 @@ private:
         const size_t &curr_iter, size_t max_iter, int leg,
         const Vec3<T> &ini, const Vec3<T> &fin);
 
-    //  int bug_checker_times; // 临时变量，查找电机转动1圈问题
 };
 
 #endif // FSM_STATE_RECOVERY_STANDUP_H

@@ -68,7 +68,7 @@ void SpineBoard::resetCommand() {
 /*!
  * Run spine board control
  */
-void SpineBoard::run() { // 仿真中到模拟spine板计算关节扭矩
+void SpineBoard::run() { 
   iter_counter++;
   if (cmd == nullptr || data == nullptr) {
     printf(

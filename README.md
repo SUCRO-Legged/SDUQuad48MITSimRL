@@ -1,5 +1,5 @@
 # sduog48MITSimRL
-This repository contains the code for the MIT controller for the SDUog48 robot. The deployment code is based on the MIT controller for the Mini Cheetah robot, which can be found at https://github.com/mit-biomimetics/Cheetah-Software.git. The code has been modified to work with the SDUog48 robot using Deep Reinforcement Learning. 
+This repository contains the code for the MIT controller for the SDUog48 robot developed by ourselves. The deployment code is based on the [MIT controller](https://github.com/mit-biomimetics/Cheetah-Software) for the Mini Cheetah robot. The code has been modified to work for the sim-to-sim and sim-to-real of Deep Reinforcement Learning control method.
 
 ## Build
 Clone this repository and navigate to this repository directory. To build all code:
