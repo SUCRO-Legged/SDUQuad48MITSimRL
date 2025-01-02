@@ -1,5 +1,5 @@
 # SDUQuad48MITSimRL
-This repository contains the simulation and deployment for the SDUQuad48 robot developed by Center for Robotics, Shandong University. The code is based on the [MIT controller](https://github.com/mit-biomimetics/Cheetah-Software) for the Mini Cheetah robot. The code has been modified to work for the sim-to-sim and sim-to-real of the Deep Reinforcement Learning control method [ALARM: Safe Reinforcement Learning with Reliable Mimic for Robust Legged Locomotion](https://sucro-legged.github.io/ALARM/).
+This repository contains the simulation and deployment for the SDUQuad48 robot developed by Center for Robotics, Shandong University. The code is based on the [MIT controller](https://github.com/mit-biomimetics/Cheetah-Software) for the Mini Cheetah robot. The code has been modified to work for the sim-to-sim and sim-to-real of the Deep Reinforcement Learning control method [ALARM: Safe Reinforcement Learning with Reliable Mimicry for Robust Legged Locomotion](https://sucro-legged.github.io/ALARM/).
 
 ## Build
 Clone this repository and navigate to this repository directory. To build all code:
